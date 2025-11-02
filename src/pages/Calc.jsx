@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+const apiToken = import.meta.env.VITE_API_TOKEN;
+
+
 function Calc() {
     const [coins, setCoins] = useState([]);
     const [holdings, setHoldings] = useState([{ name: "", amount: "" }]);
@@ -13,7 +17,7 @@ function Calc() {
                     "/api/api/v3/coins/markets?vs_currency=idr",
                     {
                         headers: {
-                            Authorization: "Bearer CG-qjVJa3M2VvFbfXcyE2ZvVHB9",
+                            Authorization: `Bearer ${apiToken}`,
                         },
                     }
                 );

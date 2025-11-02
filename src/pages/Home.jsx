@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, Link } from 'react-router-dom'
+// import { getCoinList } from '../api/coins.js'
 
+
+const apiUrl = import.meta.env.VITE_API_URL;
+const apiToken = import.meta.env.VITE_API_TOKEN;
 
 function Home() {
     const [coins, setCoins] = useState([])
     const [loading, setLoading] = useState(true)
     const [refreshing, setRefreshing] = useState(false)
 
+    // ✅ Pindahkan ke luar useEffect biar bisa dipakai ulang
     const fetchData = async () => {
         try {
             setLoading(true)
             const response = await fetch(
-                '/api/api/v3/coins/markets?vs_currency=idr',
+                `${apiUrl}/coins/markets?vs_currency=idr`,
                 {
                     headers: {
-                        Authorization: 'Bearer CG-qjVJa3M2VvFbfXcyE2ZvVHB9',
+                        Authorization: `Bearer ${apiToken}`,
                     },
                 }
             )
@@ -133,7 +138,7 @@ function Home() {
                                     </td>
                                     <Link
 										key={coin.name}
-										to={"coin/"+coin.symbol}
+										to={"coin/"+coin.name}
                                         className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-800 transition"
                                     >
 									Detail

@@ -8,7 +8,7 @@ import { useLocation, Link } from 'react-router-dom'
 
 const navigation = [
     { name: 'Home', href: '/' },
-    { name: 'Filter', href: '/filter' },
+    // { name: 'Filter', href: '/filter' },
     { name: 'Calculator', href: '/calc' },
 ]
 

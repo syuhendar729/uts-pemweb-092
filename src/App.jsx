@@ -19,7 +19,7 @@ function App() {
                     <Route path="/filter" element={<Filter />} />
                     <Route path="/calc" element={<Calc />} />
                     {/* <Route path="/detail" element={<Detail />} /> */}
-					<Route path="/coin/:symbol" element={<Detail />} />
+                    <Route path="/coin/:symbol" element={<Detail />} />
                 </Routes>
             </BrowserRouter>
         </>
