@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation, Link, useNavigate } from 'react-router-dom'
 // import { getCoinList } from '../api/coins.js'
 
-
-const apiUrl = import.meta.env.VITE_API_URL;
-const apiToken = import.meta.env.VITE_API_TOKEN;
+const apiUrl = import.meta.env.VITE_API_URL
+const apiToken = import.meta.env.VITE_API_TOKEN
 
 function Home() {
     const [coins, setCoins] = useState([])
     const [loading, setLoading] = useState(true)
     const [refreshing, setRefreshing] = useState(false)
+	const navigate = useNavigate();
 
     // ✅ Pindahkan ke luar useEffect biar bisa dipakai ulang
     const fetchData = async () => {
@@ -87,7 +87,7 @@ function Home() {
                                 <th className="px-6 py-3 text-left text-sm font-semibold">
                                     24h Change (%)
                                 </th>
-                               <th className="px-4 py-3 text-left text-sm font-semibold">
+                                <th className="px-4 py-3 text-left text-sm font-semibold">
                                     Action
                                 </th>
                             </tr>
@@ -136,13 +136,19 @@ function Home() {
                                         )}
                                         %
                                     </td>
-                                    <Link
-										key={coin.name}
-										to={"coin/"+coin.name}
-                                        className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-800 transition"
-                                    >
-									Detail
-                                    </Link>
+
+                                    <td className="px-6 py-4 text-sm">
+                                        <button
+                                            onClick={() =>
+                                                navigate(`/coin/${coin.id}`, {
+                                                    state: { coin },
+                                                })
+                                            }
+                                            className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-800 transition"
+                                        >
+                                            Detail
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
