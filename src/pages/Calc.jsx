@@ -10,27 +10,35 @@ function Calc() {
     const [totalAssets, setTotalAssets] = useState(0);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchCoins = async () => {
-            try {
-                const response = await fetch(
-                    "/api/api/v3/coins/markets?vs_currency=idr",
-                    {
-                        headers: {
-                            Authorization: `Bearer ${apiToken}`,
-                        },
-                    }
-                );
-                const data = await response.json();
-                setCoins(data);
-            } catch (error) {
-                console.error("Error fetching coin data:", error);
-            } finally {
-                setLoading(false);
+    const fetchData = async () => {
+        try {
+            setLoading(true)
+            const response = await fetch(
+                `${apiUrl}/coins/markets?vs_currency=idr`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${apiToken}`,
+                    },
+                }
+            )
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`)
             }
-        };
-        fetchCoins();
-    }, []);
+
+            const data = await response.json()
+            setCoins(data)
+        } catch (error) {
+            console.error('Error fetching data:', error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
 
     const handleChange = (index, field, value) => {
         const updatedHoldings = [...holdings];
